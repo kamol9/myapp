@@ -6,11 +6,13 @@ const Item = styled.div`
   border-radius: 10px;
   padding: 14px;
   margin-bottom: 7px;
-  color: ${props => props.done ? '#1fd84d' : 'auto'}
-  text-decoration: ${props => props.done ? 'line-through' : 'auto'}
+  color: ${props => (props.done ? '#1fd84d' : 'auto')};
+  text-decoration: ${props => (props.done ? 'line-through' : 'auto')};
 `
 
 class ToDoItem extends Component {
+
+
     static defaultProps = {
         done: false
     }
@@ -19,8 +21,23 @@ class ToDoItem extends Component {
     }
 
     toggleDone = () => {
-        this.setState({ done: !this.state.done })
+        fetch(`http//localhost:3000/todo_items/${this.props.id}`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": 'application/json: charset=utf-8'
+            },
+            body: JSON.stringify({
+                todo_item: {
+                    done: !this.state.done
+                }
+            })
+        }).then(response => {
+            if (response.ok) {
+                this.setState({ done: !this.state.done })
+            }
+        })
     }
+
 
     render() {
         const { text } = this.props

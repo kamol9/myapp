@@ -15,14 +15,24 @@ margin-top: 14px;
 const Header = styled.h1`
 color: #fff;
 `
-
+const DestroyButton = styled.button`
+border-radius: 10px;
+background: red;
+padding: 5px;
+collor: #fff;
+margin-bottom: 10px;
+`
 
 class ToDoList extends Component {
+
+    componentDidMount = () => {
+        fetch('http://localhost:5000/todo_items')
+            .then(response => response.json())
+            .then(json => this.setState({ tasks: json }))
+    }
+
     static defaultProps = {
-        tasks: [
-            { done: true, text: 'Zrob zadanie na JS' },
-            { done: false, text: 'Zaliczyć JSa' }
-        ],
+        tasks: [],
         title: "Lista Rzeczy Do Zrobienia"
     }
 
@@ -42,6 +52,9 @@ class ToDoList extends Component {
         list.push({ text: Draft, done: false })
         this.setState({ tasks: list, Draft: '' })
     }
+    removeAll = () => {
+        this.setState({ tasks: [] })
+    }
 
     render() {
         const { title } = this.props
@@ -49,13 +62,14 @@ class ToDoList extends Component {
         return (
             <Container>
                 <Header>{title}</Header>
-                {tasks.map(task => <ToDoItem text={task.text} done={task.done} />)}
+                <DestroyButton onClick={this.removeAll}>Usuń Wszystko</DestroyButton>
+                { tasks.map(task => <ToDoItem id={task.id} key={task.key} text={task.content} done={task.done} />)}
                 <NewToDoForm
                     onSubmint={this.addToDo}
                     onChange={this.updateDraft}
                     Draft={Draft}
                 />
-            </Container>
+            </Container >
         )
     }
 }

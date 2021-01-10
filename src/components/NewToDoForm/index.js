@@ -33,9 +33,9 @@ const Container = styled.div`
 `
 
 const NewToDoForm = ({ onChange, Draft, onSubmint }) => (
-    <Container>
-        <TextInput type='text' onChange={onChange} value={Draft} />
-        <Button onClick={onSubmint}>Dodaj</Button>
-    </Container>
+  <Container>
+    <TextInput type='text' onChange={onChange} value={Draft} />
+    <Button onClick={onSubmint}>Dodaj</Button>
+  </Container>
 )
 export default NewToDoForm

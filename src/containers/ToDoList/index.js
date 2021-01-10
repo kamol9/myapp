@@ -26,7 +26,7 @@ margin-bottom: 10px;
 class ToDoList extends Component {
 
     componentDidMount = () => {
-        fetch('http://localhost:5000/todo_items')
+        fetch('https://jsonplaceholder.typicode.com/posts/')
             .then(response => response.json())
             .then(json => this.setState({ tasks: json }))
     }
@@ -49,7 +49,7 @@ class ToDoList extends Component {
     addToDo = () => {
         const { tasks, Draft } = this.state
         const list = tasks
-        list.push({ text: Draft, done: false })
+        list.push({ body: Draft, done: false })
         this.setState({ tasks: list, Draft: '' })
     }
     removeAll = () => {
@@ -63,7 +63,7 @@ class ToDoList extends Component {
             <Container>
                 <Header>{title}</Header>
                 <DestroyButton onClick={this.removeAll}>Usuń Wszystko</DestroyButton>
-                { tasks.map(task => <ToDoItem id={task.id} key={task.key} text={task.content} done={task.done} />)}
+                { tasks.map(task => <ToDoItem body={task.body} done={task.done} />)}
                 <NewToDoForm
                     onSubmint={this.addToDo}
                     onChange={this.updateDraft}

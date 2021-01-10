@@ -21,7 +21,7 @@ class ToDoItem extends Component {
     }
 
     toggleDone = () => {
-        fetch(`http//localhost:3000/todo_items/${this.props.id}`, {
+        fetch(`https://jsonplaceholder.typicode.com/posts/ ${this.props.id}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": 'application/json: charset=utf-8'
@@ -40,13 +40,14 @@ class ToDoItem extends Component {
 
 
     render() {
-        const { text } = this.props
+        const { body } = this.props
 
         return (
             <Item onClick={this.toggleDone} done={this.state.done}>
-                {text}
+                <p>Do zrobienia: {body}</p>
             </Item>
         )
+
     }
 }
 

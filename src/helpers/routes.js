@@ -1,4 +1,4 @@
-const serverUrl = 'http://localhost:5000'
+const serverUrl = 'https://jsonplaceholder.typicode.com/posts/'
 
 export const toDoItemsApiUrl = id =>
     id ? `${serverUrl}/todo_items/${id}` : `${serverUrl}/todo_items/`

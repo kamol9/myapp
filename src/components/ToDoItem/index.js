@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import uniqeid from 'uniqid';
 
 const Item = styled.div`
   background: #343744;
   border-radius: 10px;
   padding: 14px;
   margin-bottom: 7px;
-  color: ${props => (props.done ? '#1fd84d' : 'auto')};
-  text-decoration: ${props => (props.done ? 'line-through' : 'auto')};
+  color: ${props => (props.done ? '#1fd84d' : 'inherit')};
+  text-decoration: ${props => (props.done ? 'line-through' : 'none')};
 `
 
 class ToDoItem extends Component {
@@ -21,21 +22,7 @@ class ToDoItem extends Component {
     }
 
     toggleDone = () => {
-        fetch(`https://jsonplaceholder.typicode.com/posts/ ${this.props.id}`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": 'application/json: charset=utf-8'
-            },
-            body: JSON.stringify({
-                todo_item: {
-                    done: !this.state.done
-                }
-            })
-        }).then(response => {
-            if (response.ok) {
-                this.setState({ done: !this.state.done })
-            }
-        })
+        this.setState({ done: !this.state.done });
     }
 
 
@@ -43,9 +30,9 @@ class ToDoItem extends Component {
         const { body } = this.props
 
         return (
-            <Item onClick={this.toggleDone} done={this.state.done}>
-                <p>Do zrobienia: {body}</p>
-            </Item>
+            <Item key={uniqeid('list-')} onClick={this.toggleDone} done={this.state.done}>
+                < p > Do zrobienia: {body}</p >
+            </Item >
         )
 
     }

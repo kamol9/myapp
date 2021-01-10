@@ -19,7 +19,6 @@ const DestroyButton = styled.button`
 border-radius: 10px;
 background: red;
 padding: 5px;
-collor: #fff;
 margin-bottom: 10px;
 `
 
@@ -63,7 +62,12 @@ class ToDoList extends Component {
             <Container>
                 <Header>{title}</Header>
                 <DestroyButton onClick={this.removeAll}>Usuń Wszystko</DestroyButton>
-                { tasks.map(task => <ToDoItem body={task.body} done={task.done} />)}
+                {tasks.length > 0 ? (
+                    tasks.map(task => <ToDoItem key={task.id} body={task.body} done={task.done} />)
+                ) : (
+                        <ToDoItem key={tasks.id} body={tasks.body} />
+                    )}
+
                 <NewToDoForm
                     onSubmint={this.addToDo}
                     onChange={this.updateDraft}

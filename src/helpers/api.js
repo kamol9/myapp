@@ -5,4 +5,5 @@ export const get = url =>
                 .then(respone => Response.json())
                 .then(jsno => resolve(json))
         }
-    )
+    );
+
